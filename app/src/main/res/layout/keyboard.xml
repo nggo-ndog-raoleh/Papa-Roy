@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Ini adalah untuk layout keyboardnya, berupa keyboardView. alignParentBottom supaya keyboard muncul di bawah layar-->
+<!--keyPreviewLayout adalah layout short-lived pop-up yang muncul setiap kali tombol pada keyboard ditekan-->
+<android.inputmethodservice.KeyboardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/keyboard"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:keyPreviewLayout ="@layout/preview"
+    />

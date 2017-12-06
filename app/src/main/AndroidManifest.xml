@@ -16,6 +16,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!--SERVICE di bawah ini adalah supaya OS Android tahu ada keyboard di sistem-->
+        <!--SERVICE ini untuk menambahkan IME (Input Method Editor), yaitu adalah keyboard-->
+        <service android:name=".LJKeyboard"
+            android:label="@string/app_name"
+            android:permission="android.permission.BIND_INPUT_METHOD"
+            >
+            <meta-data android:name="android.view.im" android:resource="@xml/method"/>
+            <intent-filter>
+                <action android:name="android.view.InputMethod" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>
