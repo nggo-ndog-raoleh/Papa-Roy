@@ -24,6 +24,8 @@ import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -223,7 +225,23 @@ public class LJKeyboard2 extends InputMethodService implements KeyboardView.OnKe
         @Override
         protected Boolean doInBackground(Void... voids) {
             try {
-                getCity();
+                DBHelper dbHelper = new DBHelper(getApplicationContext());
+                if(dbHelper.countAllData()==0){
+                    getCity();
+                    System.out.println("GetCity via internet");
+                } else{
+                    String kotaAsalId = new String(), kotaTujuanId = new String();
+                    HashMap<String, String> param = dbHelper.GetAllCity(kotaAsal, kotaTujuan);
+                    System.out.println("GetCity via sqlite");
+                    for(Map.Entry m:param.entrySet()){
+                        if(m.getKey().toString().toUpperCase().equals("KOTAASAL")){
+                            kotaAsalId = m.getValue().toString();
+                        } if(m.getKey().toString().toUpperCase().equals("KOTATUJUAN")){
+                            kotaTujuanId = m.getValue().toString();
+                        }
+                    }
+                    cekOngkir(kotaAsalId, kotaTujuanId, berat, kurir);
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
