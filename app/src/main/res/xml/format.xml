@@ -1,0 +1,23 @@
+<!--Ini adalah keyboard yang muncul-->
+<!--KeyLabel adalah yang terlihat oleh pengguna-->
+<!--codes adalah code yang bersesuaian dengan karakternya (Nilai unicode dari karakternya)-->
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+    android:keyWidth="100%p"
+    android:horizontalGap="0px"
+    android:verticalGap="0px"
+    android:keyHeight="60dp"
+    >
+    <Row>
+        <Key android:codes="1" android:keyLabel="Format pemesanan" />
+    </Row>
+    <Row>
+        <Key android:codes="2" android:keyLabel="Format Pembayaran" />
+    </Row>
+    <Row>
+        <Key android:codes="3" android:keyLabel="Ganti Keyboard" />
+    </Row>
+    <Row>
+        <Key android:codes="4" android:keyLabel="Previous"/>
+        <Key android:codes="5" android:keyLabel="Next"/>
+    </Row>
+</Keyboard>

@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1085700525778",
+    "firebase_url": "https://coba-9e717.firebaseio.com",
+    "project_id": "coba-9e717",
+    "storage_bucket": "coba-9e717.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1085700525778:android:8800b7918c631cb9",
+        "android_client_info": {
+          "package_name": "arkavidia.ljkeyboard"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1085700525778-da7ugp6qof0dufc295t2lmsusp5b7mpk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "arkavidia.ljkeyboard",
+            "certificate_hash": "6aef4afce432d56c360e154cb7750eabe895ffd9"
+          }
+        },
+        {
+          "client_id": "1085700525778-7iqo7gfe1fo9k12i5hpamqc5b11fg4jn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_XKrk6csvOEJcQiRU-Eq4_vcpnjm4BrU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1085700525778-7iqo7gfe1fo9k12i5hpamqc5b11fg4jn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

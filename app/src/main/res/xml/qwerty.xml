@@ -1,6 +1,3 @@
-<!--Ini adalah keyboard yang muncul-->
-<!--KeyLabel adalah yang terlihat oleh pengguna-->
-<!--codes adalah code yang bersesuaian dengan karakternya (Nilai unicode dari karakternya)-->
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
     android:keyWidth="10%p"
     android:horizontalGap="0px"
@@ -8,7 +5,6 @@
     android:keyHeight="60dp"
     >
     <Row>
-        <!--keyEdgeFlags ini biasanya diberikan pada tombol paling kiri atau paling kanan di keyboard-->
         <Key android:codes="49" android:keyLabel="1" android:keyEdgeFlags="left"/>
         <Key android:codes="50" android:keyLabel="2"/>
         <Key android:codes="51" android:keyLabel="3"/>
@@ -33,19 +29,18 @@
         <Key android:codes="112" android:keyLabel="p" android:keyEdgeFlags="right"/>
     </Row>
     <Row>
-        <Key android:codes="97" android:keyLabel="a" android:keyEdgeFlags="left"/>
-        <Key android:codes="115" android:keyLabel="s"/>
-        <Key android:codes="100" android:keyLabel="d"/>
-        <Key android:codes="102" android:keyLabel="f"/>
-        <Key android:codes="103" android:keyLabel="g"/>
-        <Key android:codes="104" android:keyLabel="h"/>
-        <Key android:codes="106" android:keyLabel="j"/>
-        <Key android:codes="107" android:keyLabel="k"/>
-        <Key android:codes="108" android:keyLabel="l"/>
-        <Key android:codes="35,64" android:keyLabel="\# \@" android:keyEdgeFlags="right"/>
+        <Key android:codes="97" android:keyLabel="a" android:keyEdgeFlags="left" android:keyWidth="11.11%p"/>
+        <Key android:codes="115" android:keyLabel="s" android:keyWidth="11.11%p"/>
+        <Key android:codes="100" android:keyLabel="d" android:keyWidth="11.11%p"/>
+        <Key android:codes="102" android:keyLabel="f" android:keyWidth="11.11%p"/>
+        <Key android:codes="103" android:keyLabel="g" android:keyWidth="11.11%p"/>
+        <Key android:codes="104" android:keyLabel="h" android:keyWidth="11.11%p"/>
+        <Key android:codes="106" android:keyLabel="j" android:keyWidth="11.11%p"/>
+        <Key android:codes="107" android:keyLabel="k" android:keyWidth="11.11%p"/>
+        <Key android:codes="108" android:keyLabel="l" android:keyWidth="11.11%p" android:keyEdgeFlags="right"/>
     </Row>
     <Row>
-        <Key android:codes="-1" android:keyLabel="CAPS" android:keyEdgeFlags="left"/>
+        <Key android:codes="3" android:keyLabel="KB" android:keyWidth="15%p" android:keyEdgeFlags="left"/>
         <Key android:codes="122" android:keyLabel="z"/>
         <Key android:codes="120" android:keyLabel="x"/>
         <Key android:codes="99" android:keyLabel="c"/>
@@ -53,15 +48,12 @@
         <Key android:codes="98" android:keyLabel="b"/>
         <Key android:codes="110" android:keyLabel="n"/>
         <Key android:codes="109" android:keyLabel="m"/>
-        <Key android:codes="46" android:keyLabel="."/>
-        <!--Jika ada codes yang seperti di bawah ini (63, 33, 58), itu berarti jika diketuk sekali menghasilkan ? (63), 2x menghasilkan ! (33), dst-->
-        <Key android:codes="63,33,58" android:keyLabel="\? ! :" android:keyEdgeFlags="right"/>
+        <Key android:codes="-5" android:keyLabel="DEL" android:keyWidth="15%p" android:isRepeatable="true" android:keyEdgeFlags="right"/>
     </Row>
     <Row android:rowEdgeFlags="bottom">
-        <Key android:codes="44" android:keyLabel="," android:keyWidth="10%p"  android:keyEdgeFlags="left"/>
-        <Key android:codes="47" android:keyLabel="/" android:keyWidth="10%p" />
-        <Key android:codes="32" android:keyLabel="SPACE" android:keyWidth="40%p" android:isRepeatable="true"/>
-        <Key android:codes="-5" android:keyLabel="DEL" android:keyWidth="20%p" android:isRepeatable="true"/>
-        <Key android:codes="-4" android:keyLabel="DONE" android:keyWidth="20%p" android:keyEdgeFlags="right"/>
+        <Key android:codes="4" android:keyLabel="BACK" android:keyWidth="20%p" android:keyEdgeFlags="left"/>
+        <Key android:codes="-2" android:keyLabel="-" android:keyWidth="10%p"/>
+        <Key android:codes="32" android:keyLabel="SPACE" android:keyWidth="50%p" android:isRepeatable="true"/>
+        <Key android:codes="-4" android:keyLabel="CEK!" android:keyWidth="20%p" android:keyEdgeFlags="right"/>
     </Row>
 </Keyboard>
