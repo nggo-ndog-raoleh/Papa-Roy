@@ -1,4 +1,4 @@
-package arkavidia.ljkeyboard;
+package arkavidia.ljkeyboard.Model;
 
 /**
  * Created by axellageraldinc on 07/12/17.

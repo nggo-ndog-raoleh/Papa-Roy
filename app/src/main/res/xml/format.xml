@@ -3,18 +3,18 @@
 <!--codes adalah code yang bersesuaian dengan karakternya (Nilai unicode dari karakternya)-->
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
     android:keyWidth="100%p"
-    android:horizontalGap="0px"
-    android:verticalGap="0px"
+    android:horizontalGap="1%p"
+    android:verticalGap="1%p"
     android:keyHeight="60dp"
     >
     <Row>
-        <Key android:codes="1" android:keyLabel="Format pemesanan" />
+        <Key android:codes="1" android:keyLabel="Format pemesanan" android:keyWidth="94%p" android:horizontalGap="3%p" android:keyEdgeFlags="left"/>
     </Row>
     <Row>
-        <Key android:codes="2" android:keyLabel="Format Pembayaran" />
+        <Key android:codes="2" android:keyLabel="Format Pembayaran" android:keyWidth="94%p" android:horizontalGap="3%p" android:keyEdgeFlags="left" />
     </Row>
     <Row>
-        <Key android:codes="3" android:keyLabel="Ganti Keyboard" />
+        <Key android:codes="3" android:keyLabel="Ganti Keyboard" android:keyWidth="94%p" android:horizontalGap="3%p" android:keyEdgeFlags="left" />
     </Row>
     <Row>
         <Key android:codes="4" android:keyLabel="Previous"/>

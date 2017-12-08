@@ -29,6 +29,9 @@ import java.util.Map;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import arkavidia.ljkeyboard.Database.DBHelper;
+import arkavidia.ljkeyboard.Model.Template;
+
 /**
  * Created by axellageraldinc on 06/12/17.
  */
@@ -118,11 +121,16 @@ public class LJKeyboard2 extends InputMethodService implements KeyboardView.OnKe
                 break;
             default:
                 if(i==1){
-                    databaseReference.child("format").child(user.getUid()).child("pemesanan").addValueEventListener(new ValueEventListener() {
+                    databaseReference.child("format").child(user.getUid()).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            String code = dataSnapshot.getValue(String.class);
-                            ic.commitText(code,1); //commitText untuk mengirim teks
+                            for(DataSnapshot data : dataSnapshot.getChildren()) {
+                                Template template = data.getValue(Template.class);
+                                if(template.getTipeTemplate().equals("pemesanan")){
+                                    String code = template.getIsiTemplate();
+                                    ic.commitText(code,1); //commitText untuk mengirim teks
+                                }
+                            }
                         }
 
                         @Override
@@ -131,11 +139,16 @@ public class LJKeyboard2 extends InputMethodService implements KeyboardView.OnKe
                         }
                     });
                 } else if(i==2){
-                    databaseReference.child("format").child(user.getUid()).child("pembayaran").addValueEventListener(new ValueEventListener() {
+                    databaseReference.child("format").child(user.getUid()).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            String code = dataSnapshot.getValue(String.class);
-                            ic.commitText(code,1); //commitText untuk mengirim teks
+                            for(DataSnapshot data : dataSnapshot.getChildren()) {
+                                Template template = data.getValue(Template.class);
+                                if(template.getTipeTemplate().equals("pembayaran")){
+                                    String code = template.getIsiTemplate();
+                                    ic.commitText(code,1); //commitText untuk mengirim teks
+                                }
+                            }
                         }
 
                         @Override
@@ -231,6 +244,9 @@ public class LJKeyboard2 extends InputMethodService implements KeyboardView.OnKe
                     System.out.println("GetCity via internet");
                 } else{
                     String kotaAsalId = new String(), kotaTujuanId = new String();
+//                    int idKotaAsal = dbHelper.getKotaAsal(kotaAsal);
+//                    int idKotaTujuan = dbHelper.getKotaTujuan(kotaTujuan);
+//                    kotaAsalId = String.valueOf(idKotaAsal); kotaTujuanId = String.valueOf(idKotaTujuan);
                     HashMap<String, String> param = dbHelper.GetAllCity(kotaAsal, kotaTujuan);
                     System.out.println("GetCity via sqlite");
                     for(Map.Entry m:param.entrySet()){
@@ -311,38 +327,42 @@ public class LJKeyboard2 extends InputMethodService implements KeyboardView.OnKe
             wr.close();
 
             int responseCode = con.getResponseCode();
-            System.out.println("\nSending 'POST' request to URL : " + url_ongkir);
-            System.out.println("Post parameters : " + urlParameters);
-            System.out.println("Response Code : " + responseCode);
+            if(responseCode!=400) {
+                System.out.println("\nSending 'POST' request to URL : " + url_ongkir);
+                System.out.println("Post parameters : " + urlParameters);
+                System.out.println("Response Code : " + responseCode);
 
-            BufferedReader in = new BufferedReader(
-                    new InputStreamReader(con.getInputStream()));
-            String inputLine;
-            StringBuffer response = new StringBuffer();
+                BufferedReader in = new BufferedReader(
+                        new InputStreamReader(con.getInputStream()));
+                String inputLine;
+                StringBuffer response = new StringBuffer();
 
-            while ((inputLine = in.readLine()) != null) {
-                response.append(inputLine);
-            }
-            in.close();
-
-            //print result
-            JSONObject jsonObject = new JSONObject(response.toString());
-            JSONObject rajaongkir = jsonObject.getJSONObject("rajaongkir");
-            JSONArray results = rajaongkir.getJSONArray("results");
-            String pesan = new String();
-            for (int i=0; i<results.length(); i++){
-                JSONObject resulst_object = results.getJSONObject(i);
-                JSONArray costs = resulst_object.getJSONArray("costs");
-                for (int j=0; j<costs.length(); j++){
-                    JSONObject costs_object = costs.getJSONObject(j);
-                    JSONArray cost = costs_object.getJSONArray("cost");
-                    for (int k=0; k<cost.length(); k++){
-                        JSONObject cost_object = cost.getJSONObject(k);
-                        pesan = "\n" +
-                                costs_object.getString("service") + " | " + cost_object.getString("value");
-                    }
-                    getCurrentInputConnection().commitText(pesan, 1);
+                while ((inputLine = in.readLine()) != null) {
+                    response.append(inputLine);
                 }
+                in.close();
+
+                //print result
+                JSONObject jsonObject = new JSONObject(response.toString());
+                JSONObject rajaongkir = jsonObject.getJSONObject("rajaongkir");
+                JSONArray results = rajaongkir.getJSONArray("results");
+                String pesan = new String();
+                for (int i = 0; i < results.length(); i++) {
+                    JSONObject resulst_object = results.getJSONObject(i);
+                    JSONArray costs = resulst_object.getJSONArray("costs");
+                    for (int j = 0; j < costs.length(); j++) {
+                        JSONObject costs_object = costs.getJSONObject(j);
+                        JSONArray cost = costs_object.getJSONArray("cost");
+                        for (int k = 0; k < cost.length(); k++) {
+                            JSONObject cost_object = cost.getJSONObject(k);
+                            pesan = "\n" +
+                                    costs_object.getString("service") + " | " + cost_object.getString("value");
+                        }
+                        getCurrentInputConnection().commitText(pesan, 1);
+                    }
+                }
+            } else{
+                getCurrentInputConnection().commitText("\nKota tidak ditemukan/ada kendala koneksi internet.", 1);
             }
 
         }

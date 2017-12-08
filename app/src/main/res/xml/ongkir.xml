@@ -3,15 +3,15 @@
 <!--codes adalah code yang bersesuaian dengan karakternya (Nilai unicode dari karakternya)-->
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
     android:keyWidth="100%p"
-    android:horizontalGap="0px"
-    android:verticalGap="0px"
+    android:horizontalGap="1%p"
+    android:verticalGap="1%p"
     android:keyHeight="60dp"
     >
     <Row>
-        <Key android:codes="6" android:keyLabel="ONGKIR" />
+        <Key android:codes="6" android:keyLabel="ONGKIR" android:keyWidth="94%p" android:horizontalGap="3%p" android:keyEdgeFlags="left" />
     </Row>
     <Row>
-        <Key android:codes="3" android:keyLabel="Ganti Keyboard" />
+        <Key android:codes="3" android:keyLabel="Ganti Keyboard" android:keyWidth="94%p" android:horizontalGap="3%p" android:keyEdgeFlags="left" />
     </Row>
     <Row>
         <Key android:codes="4" android:keyLabel="Previous"/>

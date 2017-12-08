@@ -2,7 +2,7 @@ package arkavidia.ljkeyboard;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -23,12 +23,13 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import arkavidia.ljkeyboard.Database.DBHelper;
+import arkavidia.ljkeyboard.Model.CityModel;
 import dmax.dialog.SpotsDialog;
 
 public class MainActivity extends AppCompatActivity {
@@ -81,6 +82,9 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     if (task.isSuccessful()) {
                         Toast.makeText(MainActivity.this, "Berhasil Login!", Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(MainActivity.this, HomeScreen.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(i);
+                        finish();
                     } else {
                         Toast.makeText(MainActivity.this, "Gagal Login!", Toast.LENGTH_SHORT).show();
                     }

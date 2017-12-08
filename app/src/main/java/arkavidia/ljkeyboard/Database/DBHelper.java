@@ -1,4 +1,4 @@
-package arkavidia.ljkeyboard;
+package arkavidia.ljkeyboard.Database;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,9 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+
+import arkavidia.ljkeyboard.Model.CityModel;
 
 /**
  * Created by axellageraldinc on 07/12/17.
@@ -32,6 +32,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 city_id + " INTEGER PRIMARY KEY, " +
                 city_name + " TEXT" + ")";
         sqLiteDatabase.execSQL(query_create_table_city);
+        String query_create_index = "CREATE INDEX ON " + TABLE_NAME;
+        sqLiteDatabase.execSQL(query_create_index);
     }
 
     public void AddCity(CityModel cityModel){
@@ -50,7 +52,6 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(query, null);
         if(cursor.moveToFirst()){
             do{
-                CityModel cityModel = new CityModel();
                 if(cursor.getString(1).toUpperCase().equals(kotaAsal.toUpperCase())){
                     param.put("kotaAsal", cursor.getString(0));
                 } if(cursor.getString(1).toUpperCase().equals(kotaTujuan.toUpperCase())){
@@ -58,8 +59,30 @@ public class DBHelper extends SQLiteOpenHelper {
                 }
             } while (cursor.moveToNext());
         }
+        cursor.close();
         return param;
     }
+
+//    public int getKotaAsal(String kotaAsal){
+//        int idKotaAsal=0;
+//        SQLiteDatabase db = this.getReadableDatabase();
+//        Cursor cursor = db.query(TABLE_NAME, new String[] {city_id}, city_name + "=?", new String[] {kotaAsal}, null, null, null, null);
+//        if(cursor!=null){
+//            cursor.moveToFirst();
+//        }
+//        idKotaAsal = Integer.parseInt(cursor.getString(0));
+//        return idKotaAsal;
+//    }
+//    public int getKotaTujuan(String kotaTujuan){
+//        int idKotaTujuan=0;
+//        SQLiteDatabase db = this.getReadableDatabase();
+//        Cursor cursor = db.query(TABLE_NAME, new String[] {city_id}, city_name + "=?", new String[] {kotaTujuan}, null, null, null, null);
+//        if(cursor!=null){
+//            cursor.moveToFirst();
+//        }
+//        idKotaTujuan = Integer.parseInt(cursor.getString(0));
+//        return idKotaTujuan;
+//    }
 
     public int countAllData(){
         int count=0;

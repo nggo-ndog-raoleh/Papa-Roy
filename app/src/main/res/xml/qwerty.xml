@@ -1,8 +1,8 @@
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
     android:keyWidth="10%p"
-    android:horizontalGap="0px"
-    android:verticalGap="0px"
-    android:keyHeight="60dp"
+    android:horizontalGap="4px"
+    android:verticalGap="4px"
+    android:keyHeight="40dp"
     >
     <Row>
         <Key android:codes="49" android:keyLabel="1" android:keyEdgeFlags="left"/>
@@ -29,15 +29,15 @@
         <Key android:codes="112" android:keyLabel="p" android:keyEdgeFlags="right"/>
     </Row>
     <Row>
-        <Key android:codes="97" android:keyLabel="a" android:keyEdgeFlags="left" android:keyWidth="11.11%p"/>
-        <Key android:codes="115" android:keyLabel="s" android:keyWidth="11.11%p"/>
-        <Key android:codes="100" android:keyLabel="d" android:keyWidth="11.11%p"/>
-        <Key android:codes="102" android:keyLabel="f" android:keyWidth="11.11%p"/>
-        <Key android:codes="103" android:keyLabel="g" android:keyWidth="11.11%p"/>
-        <Key android:codes="104" android:keyLabel="h" android:keyWidth="11.11%p"/>
-        <Key android:codes="106" android:keyLabel="j" android:keyWidth="11.11%p"/>
-        <Key android:codes="107" android:keyLabel="k" android:keyWidth="11.11%p"/>
-        <Key android:codes="108" android:keyLabel="l" android:keyWidth="11.11%p" android:keyEdgeFlags="right"/>
+        <Key android:codes="97" android:keyLabel="a" android:keyEdgeFlags="left" android:horizontalGap="3%p"/>
+        <Key android:codes="115" android:keyLabel="s"/>
+        <Key android:codes="100" android:keyLabel="d"/>
+        <Key android:codes="102" android:keyLabel="f"/>
+        <Key android:codes="103" android:keyLabel="g"/>
+        <Key android:codes="104" android:keyLabel="h"/>
+        <Key android:codes="106" android:keyLabel="j"/>
+        <Key android:codes="107" android:keyLabel="k"/>
+        <Key android:codes="108" android:keyLabel="l" android:keyEdgeFlags="right"/>
     </Row>
     <Row>
         <Key android:codes="3" android:keyLabel="KB" android:keyWidth="15%p" android:keyEdgeFlags="left"/>
