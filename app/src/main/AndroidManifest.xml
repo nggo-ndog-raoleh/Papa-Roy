@@ -12,7 +12,7 @@
         android:theme="@style/AppTheme">
 
         <!-- Tambah class AppController di atas, supaya class tersebut dieksekusi saat app dijalankan -->
-        <activity android:name=".MainActivity">
+        <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -34,7 +34,7 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".SplashScreen" />
+        <activity android:name=".MainActivity" />
         <activity android:name=".HomeScreen" />
         <activity android:name=".AddTemplate"></activity>
     </application>

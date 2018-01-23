@@ -1,10 +1,30 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--Ini adalah untuk layout keyboardnya, berupa keyboardView. alignParentBottom supaya keyboard muncul di bawah layar-->
-<!--keyPreviewLayout adalah layout short-lived pop-up yang muncul setiap kali tombol pada keyboard ditekan-->
-<android.inputmethodservice.KeyboardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/keyboard"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_alignParentBottom="true"
-    android:keyBackground="@drawable/key_background"
-    android:background="@color/ijo_gelap"/>
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <EditText
+            android:id="@+id/txtInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Ketik Disini"
+            android:inputType="textPersonName" />
+    </RelativeLayout>
+
+    <!--Ini adalah untuk layout keyboardnya, berupa keyboardView. alignParentBottom supaya keyboard muncul di bawah layar-->
+    <!--keyPreviewLayout adalah layout short-lived pop-up yang muncul setiap kali tombol pada keyboard ditekan-->
+    <android.inputmethodservice.KeyboardView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/keyboard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:keyBackground="@drawable/key_background"
+        android:background="@color/ijo_gelap"/>
+
+</LinearLayout>

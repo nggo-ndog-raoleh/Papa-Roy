@@ -32,8 +32,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 city_id + " INTEGER PRIMARY KEY, " +
                 city_name + " TEXT" + ")";
         sqLiteDatabase.execSQL(query_create_table_city);
-        String query_create_index = "CREATE INDEX ON " + TABLE_NAME;
-        sqLiteDatabase.execSQL(query_create_index);
+//        String query_create_index = "CREATE INDEX ON " + TABLE_NAME;
+//        sqLiteDatabase.execSQL(query_create_index);
     }
 
     public void AddCity(CityModel cityModel){

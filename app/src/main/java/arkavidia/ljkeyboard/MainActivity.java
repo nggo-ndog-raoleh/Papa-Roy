@@ -45,11 +45,14 @@ public class MainActivity extends AppCompatActivity {
 
     EditText txtEmail, txtPass;
     Button btnLogin;
+    AlertDialog alertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        alertDialog = new SpotsDialog(MainActivity.this, "Logging in...");
 
         dbHelper = new DBHelper(getApplicationContext());
 
@@ -76,11 +79,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void Login(){
+        alertDialog.show();
         firebaseAuth.signInWithEmailAndPassword(txtEmail.getText().toString(), txtPass.getText().toString()).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 try {
                     if (task.isSuccessful()) {
+                        alertDialog.dismiss();
                         Toast.makeText(MainActivity.this, "Berhasil Login!", Toast.LENGTH_SHORT).show();
                         Intent i = new Intent(MainActivity.this, HomeScreen.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(i);

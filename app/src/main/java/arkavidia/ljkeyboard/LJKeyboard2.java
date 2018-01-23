@@ -5,8 +5,11 @@ import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
 import android.os.AsyncTask;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -49,6 +52,8 @@ public class LJKeyboard2 extends InputMethodService implements KeyboardView.OnKe
     ArrayList<String> pesan = new ArrayList<>();
 
     private KeyboardView kv; //KeyboardView itu adalah rujukan untuk tampilan keyboardnya
+    private View root;
+    private EditText txtInput;
     private Keyboard keyboardFormat, keyboardOngkir, keyboardQwerty; //keyboardFormat yang ditugaskan ke KeyboardView
     private boolean format = true;
 
@@ -63,15 +68,19 @@ public class LJKeyboard2 extends InputMethodService implements KeyboardView.OnKe
         databaseReference = FirebaseDatabase.getInstance().getReference();
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
-        kv = (KeyboardView)getLayoutInflater().inflate(R.layout.keyboard, null);
+        root = getLayoutInflater().inflate(R.layout.keyboard, null);
+//        TextView txtKeyboard = root.findViewById(R.id.tvKeyboard);
+//        txtKeyboard.setText("HELLO WORLD!");
+        txtInput = root.findViewById(R.id.txtInput);
         keyboardFormat = new Keyboard(this, R.xml.format);
         keyboardOngkir = new Keyboard(this, R.xml.ongkir);
         keyboardQwerty = new Keyboard(this, R.xml.qwerty);
+        kv = (KeyboardView) root.findViewById(R.id.keyboard);
         kv.setKeyboard(keyboardFormat);
         kv.invalidateAllKeys();
         kv.setOnKeyboardActionListener(this);
         kv.setPreviewEnabled(false);
-        return kv;
+        return root;
     }
 
     @Override
@@ -159,19 +168,23 @@ public class LJKeyboard2 extends InputMethodService implements KeyboardView.OnKe
                 } else if(i==3) {
                     InputMethodManager imeManager = (InputMethodManager) getApplicationContext().getSystemService(INPUT_METHOD_SERVICE);
                     imeManager.showInputMethodPicker();
+//                    System.out.println("Input : " + txtInput.getText().toString());
                 } else if(i==4){
                     if(!format){
+//                        ((ViewGroup)kv.getParent()).removeAllViews();
                         kv.setKeyboard(keyboardFormat);
                         kv.invalidateAllKeys();
                         format = true;
                     }
                 } else if(i==5){
                     if(format){
+//                        ((ViewGroup)kv.getParent()).removeAllViews();
                         kv.setKeyboard(keyboardOngkir);
                         kv.invalidateAllKeys();
                         format = false;
                     }
                 } else if(i==6){
+//                    ((ViewGroup)kv.getParent()).removeAllViews();
                     kv.setKeyboard(keyboardQwerty);
                     kv.invalidateAllKeys();
                 } else if(i==-2){
@@ -184,6 +197,7 @@ public class LJKeyboard2 extends InputMethodService implements KeyboardView.OnKe
                     pesan.add(String.valueOf(code));
                     index_pesan++;
                     ic.commitText(String.valueOf(code),1); //commitText untuk mengirim teks
+                    txtInput.setText(String.valueOf(code));
                 }
         }
     }
