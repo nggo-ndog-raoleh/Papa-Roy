@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
@@ -123,7 +124,7 @@ public class LJKeyboard extends InputMethodService implements KeyboardView.OnKey
     * KIRIM NOMOR RESI ELEMENTS
     **/
     private KirimNomorResi kirimNomorResi;
-    private LinearLayout linearLayoutKirimNoResi;
+    private LinearLayout linearLayoutKirimNoResi, linearLayoutHorizontalKirimNomorResi;
     private EditText txtNamaCustNoResi, txtNoResi;
     private Button btnKirimNoResi;
     private Spinner spinnerCourierNoResi;
@@ -131,7 +132,7 @@ public class LJKeyboard extends InputMethodService implements KeyboardView.OnKey
     /**
     * REKAP PESANAN ELEMENTS
     **/
-    private LinearLayout linearLayoutRekapPesanan;
+    private LinearLayout linearLayoutRekapPesanan, linearLayoutHorizontalRekapPesanan;
     private EditText txtNamaCustomerRekapPesanan, txtNomorTelpCust, txtOngkirRekapPesanan;
     private Spinner spinnerCourierRekapPesanan, spinnerBank;
     private Button btnPilihProdukRekapPesanan, btnSubmitRekapPesanan;
@@ -403,6 +404,23 @@ public class LJKeyboard extends InputMethodService implements KeyboardView.OnKey
         isRekapPesanan=false;
         isPembayaran=false;
         changeLayoutStatus(true);
+        clearAllFields(linearLayoutCekOngkirFields);
+        clearAllFields(linearLayoutPembayaranFields);
+        clearAllFields(linearLayoutTerimaKasih);
+        clearAllFields(linearLayoutKirimNoResi);
+        clearAllFields(linearLayoutHorizontalKirimNomorResi);
+        clearAllFields(linearLayoutHorizontalRekapPesanan);
+    }
+    private void clearAllFields(ViewGroup group){
+        for (int i = 0, count = group.getChildCount(); i < count; ++i) {
+            View view = group.getChildAt(i);
+            if (view instanceof EditText) {
+                ((EditText)view).setText("");
+            }
+
+            if(view instanceof ViewGroup && (((ViewGroup)view).getChildCount() > 0))
+                clearAllFields((ViewGroup)view);
+        }
     }
 
     /**
@@ -705,6 +723,7 @@ public class LJKeyboard extends InputMethodService implements KeyboardView.OnKey
     private void initiateKirimNoResi(){
         kirimNomorResi = new KirimNomorResi();
         linearLayoutKirimNoResi = root.findViewById(R.id.linearLayoutKirimNoResi);
+        linearLayoutHorizontalKirimNomorResi = root.findViewById(R.id.linearLayoutHorizontalKirimNomorResi);
 
         txtNamaCustNoResi = root.findViewById(R.id.txtNamaCustKirimNoResi);
         txtNamaCustNoResi.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -762,6 +781,7 @@ public class LJKeyboard extends InputMethodService implements KeyboardView.OnKey
     **/
     private void initiateRekapPesanan(){
         linearLayoutRekapPesanan = root.findViewById(R.id.linearLayoutRekapPesanan);
+        linearLayoutHorizontalRekapPesanan = root.findViewById(R.id.linearLayoutHorizontalRekapPesanan);
 
         txtNamaCustomerRekapPesanan = root.findViewById(R.id.txtNamaCustRekapPesanan);
         txtNamaCustomerRekapPesanan.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -896,20 +916,8 @@ public class LJKeyboard extends InputMethodService implements KeyboardView.OnKey
             case KeyboardKey.KEYCODE_DONE:
                 ic.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER));
                 break;
-            case KeyboardKey.PEMESANAN:
-                break;
-            case KeyboardKey.PEMBAYARAN:
-                break;
             case KeyboardKey.CHANGE_KEYBOARD:
                 changeKeyboardLayout();
-                break;
-            case KeyboardKey.PREVIOUS:
-                break;
-            case KeyboardKey.NEXT:
-                break;
-            case KeyboardKey.ONGKIR:
-                break;
-            case KeyboardKey.DASH:
                 break;
             default:
                 char code = (char)i;
