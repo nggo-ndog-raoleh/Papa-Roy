@@ -17,8 +17,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class InformasiToko {
-    private String id, namaToko, spreadsheetId;
+    private String id, namaToko;
     private Produk produk;
     private AkunBank akunBank;
     private RekapPesanan rekapPesanan;
+    private Spreadsheet spreadsheet;
 }

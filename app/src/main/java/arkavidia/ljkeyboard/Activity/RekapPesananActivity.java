@@ -53,6 +53,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import arkavidia.ljkeyboard.Database.SqliteDbHelper;
+import arkavidia.ljkeyboard.Model.Firebase.Spreadsheet;
 import arkavidia.ljkeyboard.Model.Sqlite.RekapPesanan;
 import arkavidia.ljkeyboard.R;
 import arkavidia.ljkeyboard.TaskCompleted;
@@ -63,7 +64,9 @@ public class RekapPesananActivity extends AppCompatActivity implements EasyPermi
 
     private static final String TAG = "RekapPesananActivity";
     private static final String INFORMASI_TOKO = "informasi-toko";
+    private static final String SPREADSHEET = "spreadsheet";
     private static final String SPREADSHEET_ID = "spreadsheetId";
+    private static final String SPREADSHEET_URL = "spreadsheetUrl";
     private static final String CONTENT_DIALOG_YES_NO = "Upload rekap pesanan ke google spreadsheets?";
 
     private Toolbar toolbar;
@@ -123,7 +126,7 @@ public class RekapPesananActivity extends AppCompatActivity implements EasyPermi
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
 
-        databaseReference.child(INFORMASI_TOKO).child(user.getUid()).child(SPREADSHEET_ID).addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.child(INFORMASI_TOKO).child(user.getUid()).child(SPREADSHEET).child(SPREADSHEET_ID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 spreadsheetsId = dataSnapshot.getValue(String.class);
@@ -478,19 +481,20 @@ public class RekapPesananActivity extends AppCompatActivity implements EasyPermi
     }
 
     @Override
-    public void onTaskComplete(String spreadsheetId) {
+    public void onTaskComplete(Spreadsheet spreadsheet) {
         Log.i(TAG, "Upload succeed!");
         sqliteDbHelper.deleteAllRecordsFromTableRekapPesanan();
         tableLayout.removeAllViews();
         initiateTableRowHeader();
         initiateTableRowContent();
+        Toast.makeText(this, "Upload to google sheet completed!", Toast.LENGTH_SHORT).show();
     }
 
     /**
      * An asynchronous task that handles the Google Sheets API call.
      * Placing the API calls in their own task ensures the UI stays responsive.
      */
-    private class MakeRequestTask extends AsyncTask<Void, Void, String> {
+    private class MakeRequestTask extends AsyncTask<Void, Void, Spreadsheet> {
         private com.google.api.services.sheets.v4.Sheets mService = null;
         private Exception mLastError = null;
         private TaskCompleted mCallback;
@@ -518,7 +522,7 @@ public class RekapPesananActivity extends AppCompatActivity implements EasyPermi
          * @param params no parameters needed for this task.
          */
         @Override
-        protected String doInBackground(Void... params) {
+        protected Spreadsheet doInBackground(Void... params) {
             if(spreadsheetId!=null){
                 try {
                     int numRows = getNumRows(spreadsheetId);
@@ -589,12 +593,8 @@ public class RekapPesananActivity extends AppCompatActivity implements EasyPermi
         }
 
         @Override
-        protected void onPostExecute(String result) {
-            if (result == null || result.isEmpty()) {
-                Log.i(TAG, "No results returned...");
-            } else {
-                mCallback.onTaskComplete(result);
-            }
+        protected void onPostExecute(Spreadsheet result) {
+            mCallback.onTaskComplete(result);
             progressDialog.dismiss();
         }
 

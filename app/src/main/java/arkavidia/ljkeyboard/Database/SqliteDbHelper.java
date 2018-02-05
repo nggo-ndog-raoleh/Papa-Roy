@@ -145,32 +145,10 @@ public class SqliteDbHelper extends SQLiteOpenHelper {
     }
 
     public void deleteAllRecordsFromTableRekapPesanan(){
-        String query = "DELETE FROM " + TABLE_REKAP_PESANAN;
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL(query);
+        db.delete(TABLE_REKAP_PESANAN, null, null);
         db.close();
     }
-
-//    public int getKotaAsal(String kotaAsal){
-//        int idKotaAsal=0;
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        Cursor cursor = db.query(TABLE_NAME, new String[] {CITY_ID}, CITY_NAME + "=?", new String[] {kotaAsal}, null, null, null, null);
-//        if(cursor!=null){
-//            cursor.moveToFirst();
-//        }
-//        idKotaAsal = Integer.parseInt(cursor.getString(0));
-//        return idKotaAsal;
-//    }
-//    public int getKotaTujuan(String kotaTujuan){
-//        int idKotaTujuan=0;
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        Cursor cursor = db.query(TABLE_NAME, new String[] {CITY_ID}, CITY_NAME + "=?", new String[] {kotaTujuan}, null, null, null, null);
-//        if(cursor!=null){
-//            cursor.moveToFirst();
-//        }
-//        idKotaTujuan = Integer.parseInt(cursor.getString(0));
-//        return idKotaTujuan;
-//    }
 
     public int countDataTableCity(){
         int count=0;

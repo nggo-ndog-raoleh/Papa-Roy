@@ -71,7 +71,9 @@ public class HomeScreen extends AppCompatActivity implements EasyPermissions.Per
 
     private static final String TAG = "HomeScreen.class";
     private static final String INFORMASI_TOKO = "informasi-toko";
+    private static final String SPREADSHEET = "spreadsheet";
     private static final String SPREADSHEET_ID = "spreadsheetId";
+    private static final String SPREADSHEET_URL = "spreadsheetUrl";
 
     DatabaseReference databaseReference;
     FirebaseAuth firebaseAuth;
@@ -131,7 +133,7 @@ public class HomeScreen extends AppCompatActivity implements EasyPermissions.Per
 
         progressDialog.setMessage("Checking spreadsheets...");
         progressDialog.show();
-        databaseReference.child(INFORMASI_TOKO).child(user.getUid()).child(SPREADSHEET_ID).addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.child(INFORMASI_TOKO).child(user.getUid()).child(SPREADSHEET).child(SPREADSHEET_ID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String spreadsheetId = dataSnapshot.getValue(String.class);
@@ -362,10 +364,10 @@ public class HomeScreen extends AppCompatActivity implements EasyPermissions.Per
     }
 
     @Override
-    public void onTaskComplete(String spreadsheetId) {
+    public void onTaskComplete(arkavidia.ljkeyboard.Model.Firebase.Spreadsheet spreadsheet) {
         progressDialog.setMessage("Creating spreadsheets...");
         progressDialog.show();
-        databaseReference.child(INFORMASI_TOKO).child(user.getUid()).child(SPREADSHEET_ID).setValue(spreadsheetId).addOnSuccessListener(this, new OnSuccessListener<Void>() {
+        databaseReference.child(INFORMASI_TOKO).child(user.getUid()).child(SPREADSHEET).setValue(spreadsheet).addOnSuccessListener(this, new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 progressDialog.dismiss();
@@ -384,7 +386,7 @@ public class HomeScreen extends AppCompatActivity implements EasyPermissions.Per
      * An asynchronous task that handles the Google Sheets API call.
      * Placing the API calls in their own task ensures the UI stays responsive.
      */
-    private class MakeRequestTask extends AsyncTask<Void, Void, String> {
+    private class MakeRequestTask extends AsyncTask<Void, Void, arkavidia.ljkeyboard.Model.Firebase.Spreadsheet> {
         private com.google.api.services.sheets.v4.Sheets mService = null;
         private Exception mLastError = null;
         private TaskCompleted mCallback;
@@ -406,7 +408,7 @@ public class HomeScreen extends AppCompatActivity implements EasyPermissions.Per
          * @param params no parameters needed for this task.
          */
         @Override
-        protected String doInBackground(Void... params) {
+        protected arkavidia.ljkeyboard.Model.Firebase.Spreadsheet doInBackground(Void... params) {
             try {
                 return createNewSpreadsheet();
             } catch (Exception e) {
@@ -416,7 +418,7 @@ public class HomeScreen extends AppCompatActivity implements EasyPermissions.Per
             }
         }
 
-        private String createNewSpreadsheet() throws IOException {
+        private arkavidia.ljkeyboard.Model.Firebase.Spreadsheet createNewSpreadsheet() throws IOException {
             SpreadsheetProperties properties = new SpreadsheetProperties();
             properties.setTitle(user.getEmail());
 
@@ -426,8 +428,13 @@ public class HomeScreen extends AppCompatActivity implements EasyPermissions.Per
             Sheets.Spreadsheets.Create request = this.mService.spreadsheets().create(content);
             Spreadsheet response = request.execute();
             String spreadsheetId = response.getSpreadsheetId();
+            String spreadsheetUrl = response.getSpreadsheetUrl();
+            arkavidia.ljkeyboard.Model.Firebase.Spreadsheet spreadsheet = arkavidia.ljkeyboard.Model.Firebase.Spreadsheet.builder()
+                    .spreadsheetId(spreadsheetId)
+                    .spreadsheetUrl(spreadsheetUrl)
+                    .build();
             appendColumnHeader(spreadsheetId);
-            return spreadsheetId;
+            return spreadsheet;
         }
 
         private void appendColumnHeader(String spreadsheetId) throws IOException {
@@ -466,8 +473,8 @@ public class HomeScreen extends AppCompatActivity implements EasyPermissions.Per
         }
 
         @Override
-        protected void onPostExecute(String result) {
-            if (result == null || result.isEmpty()) {
+        protected void onPostExecute(arkavidia.ljkeyboard.Model.Firebase.Spreadsheet result) {
+            if (result == null) {
                 Log.i(TAG, "No results returned...");
             } else {
                 mCallback.onTaskComplete(result);

@@ -128,6 +128,10 @@ public class RegisterTokoBaruActivity extends AppCompatActivity {
         String email = txtEmail.getText().toString();
         String password = txtPassword.getText().toString();
         final String namaToko = txtNamaToko.getText().toString();
+        final arkavidia.ljkeyboard.Model.Firebase.Spreadsheet spreadsheet = arkavidia.ljkeyboard.Model.Firebase.Spreadsheet.builder()
+                .spreadsheetId("belum ada")
+                .spreadsheetUrl("belum ada")
+                .build();
         firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -138,7 +142,7 @@ public class RegisterTokoBaruActivity extends AppCompatActivity {
                     InformasiToko informasiToko = InformasiToko.builder()
                             .id(idToko)
                             .namaToko(namaToko)
-                            .spreadsheetId("belum ada")
+                            .spreadsheet(spreadsheet)
                             .build();
                     databaseReference.child(INFORMASI_TOKO).child(task.getResult().getUser().getUid()).setValue(informasiToko);
                     txtNamaToko.setText("");
