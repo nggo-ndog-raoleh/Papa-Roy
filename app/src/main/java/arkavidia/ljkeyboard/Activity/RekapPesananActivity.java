@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -75,7 +76,7 @@ public class RekapPesananActivity extends AppCompatActivity implements EasyPermi
     private Button btnUploadRekapPesananKeFirebase;
 
     private Dialog dialogYesNo;
-    private TextView txtContentDialogYesNo;
+    private TextView txtContentDialogYesNo, txtAksesGoogleSpreadsheet;
     private Button btnYesDialogYesNo, btnNoDialogYesNo;
 
     private SqliteDbHelper sqliteDbHelper;
@@ -90,7 +91,7 @@ public class RekapPesananActivity extends AppCompatActivity implements EasyPermi
     private static final String[] SCOPES = { SheetsScopes.SPREADSHEETS_READONLY,
             SheetsScopes.DRIVE };
 
-    private String spreadsheetsId;
+    private String spreadsheetsId, spreadsheetUrl;
     private DatabaseReference databaseReference;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser user;
@@ -99,6 +100,33 @@ public class RekapPesananActivity extends AppCompatActivity implements EasyPermi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rekap_pesanan);
+
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+        firebaseAuth = FirebaseAuth.getInstance();
+        user = firebaseAuth.getCurrentUser();
+
+        databaseReference.child(INFORMASI_TOKO).child(user.getUid()).child(SPREADSHEET).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Spreadsheet spreadsheet = dataSnapshot.getValue(Spreadsheet.class);
+                spreadsheetsId = spreadsheet.getSpreadsheetId();
+                spreadsheetUrl = spreadsheet.getSpreadsheetUrl();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        txtAksesGoogleSpreadsheet = findViewById(R.id.txtAksesGoogleSpreadsheet);
+        txtAksesGoogleSpreadsheet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(spreadsheetUrl));
+                startActivity(browserIntent);
+            }
+        });
 
         dialogYesNo = new Dialog(RekapPesananActivity.this);
         dialogYesNo.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -119,22 +147,6 @@ public class RekapPesananActivity extends AppCompatActivity implements EasyPermi
             @Override
             public void onClick(View v) {
                 dialogYesNo.dismiss();
-            }
-        });
-
-        databaseReference = FirebaseDatabase.getInstance().getReference();
-        firebaseAuth = FirebaseAuth.getInstance();
-        user = firebaseAuth.getCurrentUser();
-
-        databaseReference.child(INFORMASI_TOKO).child(user.getUid()).child(SPREADSHEET).child(SPREADSHEET_ID).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                spreadsheetsId = dataSnapshot.getValue(String.class);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
             }
         });
 

@@ -24,6 +24,16 @@
         android:textSize="16sp"
         android:textStyle="bold" />
 
+    <TextView
+        android:id="@+id/txtAksesGoogleSpreadsheet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:text="Klik disini untuk mengakses google spreadsheets"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@color/colorPrimary" />
+
     <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

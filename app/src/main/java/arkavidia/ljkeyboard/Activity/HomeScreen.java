@@ -33,6 +33,8 @@ import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.ExponentialBackOff;
+import com.google.api.services.drive.Drive;
+import com.google.api.services.drive.model.Permission;
 import com.google.api.services.sheets.v4.Sheets;
 import com.google.api.services.sheets.v4.SheetsScopes;
 import com.google.api.services.sheets.v4.model.Spreadsheet;
@@ -388,6 +390,7 @@ public class HomeScreen extends AppCompatActivity implements EasyPermissions.Per
      */
     private class MakeRequestTask extends AsyncTask<Void, Void, arkavidia.ljkeyboard.Model.Firebase.Spreadsheet> {
         private com.google.api.services.sheets.v4.Sheets mService = null;
+        private Drive driveService = null;
         private Exception mLastError = null;
         private TaskCompleted mCallback;
         private ProgressDialog progressDialog;
@@ -397,6 +400,10 @@ public class HomeScreen extends AppCompatActivity implements EasyPermissions.Per
             HttpTransport transport = AndroidHttp.newCompatibleTransport();
             JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
             mService = new com.google.api.services.sheets.v4.Sheets.Builder(
+                    transport, jsonFactory, credential)
+                    .setApplicationName("LJ KEYBOARD")
+                    .build();
+            driveService = new Drive.Builder(
                     transport, jsonFactory, credential)
                     .setApplicationName("LJ KEYBOARD")
                     .build();
@@ -418,7 +425,7 @@ public class HomeScreen extends AppCompatActivity implements EasyPermissions.Per
             }
         }
 
-        private arkavidia.ljkeyboard.Model.Firebase.Spreadsheet createNewSpreadsheet() throws IOException {
+        private arkavidia.ljkeyboard.Model.Firebase.Spreadsheet createNewSpreadsheet() throws Exception {
             SpreadsheetProperties properties = new SpreadsheetProperties();
             properties.setTitle(user.getEmail());
 
@@ -428,6 +435,7 @@ public class HomeScreen extends AppCompatActivity implements EasyPermissions.Per
             Sheets.Spreadsheets.Create request = this.mService.spreadsheets().create(content);
             Spreadsheet response = request.execute();
             String spreadsheetId = response.getSpreadsheetId();
+            setPermission(driveService, spreadsheetId);
             String spreadsheetUrl = response.getSpreadsheetUrl();
             arkavidia.ljkeyboard.Model.Firebase.Spreadsheet spreadsheet = arkavidia.ljkeyboard.Model.Firebase.Spreadsheet.builder()
                     .spreadsheetId(spreadsheetId)
@@ -435,6 +443,13 @@ public class HomeScreen extends AppCompatActivity implements EasyPermissions.Per
                     .build();
             appendColumnHeader(spreadsheetId);
             return spreadsheet;
+        }
+
+        private Permission setPermission(Drive service, String fileId) throws Exception{
+            Permission newPermission = new Permission();
+            newPermission.setType("anyone");
+            newPermission.setRole("writer");
+            return service.permissions().create(fileId, newPermission).execute();
         }
 
         private void appendColumnHeader(String spreadsheetId) throws IOException {
