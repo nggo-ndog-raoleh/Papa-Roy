@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingBottom="5dp"
+    android:paddingLeft="10dp"
+    android:paddingTop="5dp"
+    android:clickable="true"
+    android:background="?android:attr/selectableItemBackground">
+
+    <TextView
+        android:id="@+id/txtIdProduk"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ID PRODUK"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/txtNamaProduk"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nama Produk"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txtHargaProduk"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Harga Produk"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/txtStockProduk"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Stock Produk" />
+
+</LinearLayout>

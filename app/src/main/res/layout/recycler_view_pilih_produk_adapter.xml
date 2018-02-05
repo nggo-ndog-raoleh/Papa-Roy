@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimary"
+    android:paddingBottom="10dp">
+
+    <TextView
+        android:id="@+id/txtNamaProduk"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:text="TextView"
+        android:textColor="@color/white" />
+
+    <com.shawnlin.numberpicker.NumberPicker
+        android:id="@+id/numberPickerQtyProduk"
+        android:layout_width="125dp"
+        android:layout_height="30dp"
+        android:layout_centerInParent="true"
+        app:np_dividerColor="@color/white"
+        app:np_fadingEdgeEnabled="true"
+        app:np_max="100"
+        app:np_min="0"
+        app:np_orientation="horizontal"
+        app:np_scrollerEnabled="true"
+        app:np_selectedTextColor="@color/white"
+        app:np_selectedTextSize="14sp"
+        app:np_textColor="@color/white"
+        app:np_textSize="14sp"
+        app:np_value="0"
+        app:np_wrapSelectorWheel="true" />
+
+</LinearLayout>

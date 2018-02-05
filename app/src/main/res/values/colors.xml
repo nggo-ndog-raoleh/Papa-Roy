@@ -1,12 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3f51b5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#ff4081</color>
-    <color name="ijo_gelap">#263238</color>
-    <color name="ijo">#4CB5AB</color>
-    <color name="ijo_pressed">#37857D</color>
+    <color name="colorPrimary">#3a82ef</color>
+    <color name="colorPrimaryDark">#0F62E1</color>
+    <color name="colorAccent">#FFBB4A</color>
+    <color name="red">#D84646</color>
+    <color name="red_dark">#B33636</color>
+    <color name="background">#FAFAFA</color>
     <color name="white">#ffffff</color>
+    <color name="white_dark">#dddddd</color>
+    <color name="shadow">#A1A1A1</color>
+    <color name="stroke">#979797</color>
+    <color name="grey">#F1F1F1</color>
+    <color name="kuning">#FFBB4A</color>
+    <color name="kuning_dark">#FF9F3D</color>
+    <color name="black">#000</color>
+    <color name="green">#37E557</color>
+    <color name="green_dark">#22D243</color>
 
-    <color name="black_overlay">#66000000</color>
+    <color name="keyboardBackground">#ECEFF0</color>
+    <color name="keyboardPressed">#C8CCCD</color>
+    <color name="keyboardKey">#37474F</color>
 </resources>

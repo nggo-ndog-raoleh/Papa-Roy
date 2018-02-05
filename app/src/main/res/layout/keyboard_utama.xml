@@ -1,0 +1,463 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/linearLayoutMenuUtama"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnCekOngkir"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/button_biru"
+            android:text="CEK ONGKIR"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/btnTemplateChat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/button_biru"
+            android:text="TEMPLATE CHAT"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/btnRekapPesanan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/button_biru"
+            android:text="REKAP PESANAN"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutMenuTemplateChat"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        android:orientation="vertical"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/btnPesananBaru"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/button_putih"
+            android:text="PESANAN BARU"
+            android:textColor="@color/colorPrimary" />
+
+        <Button
+            android:id="@+id/btnPembayaran"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/button_putih"
+            android:text="PEMBAYARAN"
+            android:textColor="@color/colorPrimary" />
+
+        <Button
+            android:id="@+id/btnTerimaKasih"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/button_putih"
+            android:text="TERIMA KASIH"
+            android:textColor="@color/colorPrimary" />
+
+        <Button
+            android:id="@+id/btnNoResi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/button_putih"
+            android:text="KIRIM NO RESI"
+            android:textColor="@color/colorPrimary" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutPembayaranFields"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        android:orientation="vertical"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
+        android:visibility="gone">
+
+        <EditText
+            android:id="@+id/txtNameCustPembayaran"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/background_edit_text_white_without_border"
+            android:ems="10"
+            android:hint="Nama Customer"
+            android:inputType="textPersonName"
+            android:paddingLeft="10dp" />
+
+        <Button
+            android:id="@+id/btnPilihProduk"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_putih"
+            android:text="Pilih Produk"
+            android:textColor="@color/colorPrimary" />
+
+        <EditText
+            android:id="@+id/txtOngkirPembayaran"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/background_edit_text_white_without_border"
+            android:ems="10"
+            android:hint="Ongkir"
+            android:inputType="number"
+            android:paddingLeft="10dp" />
+
+        <Button
+            android:id="@+id/btnKirimTemplatePembayaran"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_putih"
+            android:text="KIRIM"
+            android:textColor="@color/colorPrimary" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutCekOngkirFields"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        android:orientation="vertical"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
+        android:visibility="gone">
+
+        <EditText
+            android:id="@+id/txtOrigin"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/background_edit_text_white_without_border"
+            android:ems="10"
+            android:hint="Origin"
+            android:inputType="textPersonName"
+            android:paddingLeft="10dp" />
+
+        <EditText
+            android:id="@+id/txtDestination"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/background_edit_text_white_without_border"
+            android:ems="10"
+            android:hint="Destination"
+            android:inputType="textPersonName"
+            android:paddingLeft="10dp" />
+
+        <Spinner
+            android:id="@+id/spinnerCourier"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/white" />
+
+        <EditText
+            android:id="@+id/txtWeightInGrams"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/background_edit_text_white_without_border"
+            android:ems="10"
+            android:hint="Weight (gram)"
+            android:inputType="number"
+            android:paddingLeft="10dp" />
+
+        <Button
+            android:id="@+id/btnDoCekOngkir"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_putih"
+            android:text="CEK"
+            android:textColor="@color/colorPrimary" />
+
+    </LinearLayout>
+
+    <!--Ini adalah untuk layout keyboardnya, berupa keyboardView. alignParentBottom supkeyboard_utamaoard muncul di bawah layar-->
+    <!--keyPreviewLayout adalah layout short-lived pop-up yang muncul setiap kali tombol keyboard ditekan-->
+
+    <LinearLayout
+        android:id="@+id/linearLayoutPilihProduk"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        android:orientation="vertical"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
+        android:visibility="gone">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerViewPilihProduk"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:descendantFocusability="beforeDescendants"
+            android:focusableInTouchMode="true">
+
+        </android.support.v7.widget.RecyclerView>
+
+        <Button
+            android:id="@+id/btnOkPilihProduk"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/button_putih"
+            android:text="OK"
+            android:textColor="@color/colorPrimary" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutTerimaKasih"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        android:orientation="vertical"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
+        android:visibility="gone">
+
+        <EditText
+            android:id="@+id/txtCustNameTerimakasih"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/background_edit_text_white_without_border"
+            android:ems="10"
+            android:hint="Nama Customer"
+            android:inputType="textPersonName"
+            android:paddingLeft="10dp" />
+
+        <Button
+            android:id="@+id/btnSendTerimakasihTemplateChat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/button_putih"
+            android:text="KIRIM"
+            android:textColor="@color/colorPrimary" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutKirimNoResi"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        android:orientation="vertical"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/txtNamaCustKirimNoResi"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/background_edit_text_white_without_border"
+                android:ems="10"
+                android:hint="Nama Customer"
+                android:inputType="textPersonName"
+                android:paddingLeft="10dp" />
+
+            <Spinner
+                android:id="@+id/spinnerCourierNoResi"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/white" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/txtNoResi"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/background_edit_text_white_without_border"
+            android:ems="10"
+            android:hint="Nomor Resi"
+            android:inputType="textPersonName"
+            android:paddingLeft="10dp" />
+
+        <Button
+            android:id="@+id/btnKirimNoResi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/button_putih"
+            android:text="KIRIM"
+            android:textColor="@color/colorPrimary" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutRekapPesanan"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        android:orientation="vertical"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/txtNamaCustRekapPesanan"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginRight="2dp"
+                android:layout_weight="1"
+                android:background="@drawable/background_edit_text_white_without_border"
+                android:ems="10"
+                android:hint="Nama cust"
+                android:inputType="textPersonName"
+                android:paddingLeft="10dp" />
+
+            <EditText
+                android:id="@+id/txtNoTelpCust"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_weight="1"
+                android:background="@drawable/background_edit_text_white_without_border"
+                android:ems="10"
+                android:hint="No telp"
+                android:inputType="phone"
+                android:paddingLeft="10dp" />
+
+            <EditText
+                android:id="@+id/txtOngkirRekapPesanan"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="2dp"
+                android:layout_weight="1"
+                android:background="@drawable/background_edit_text_white_without_border"
+                android:ems="10"
+                android:hint="Ongkir"
+                android:inputType="number"
+                android:paddingLeft="10dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Spinner
+                android:id="@+id/spinnerCourierRekapPesanan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/white" />
+
+            <Spinner
+                android:id="@+id/spinnerBank"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/white" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnPilihProdukRekapPesanan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/button_putih"
+            android:text="Pilih Produk"
+            android:textColor="@color/colorPrimary" />
+
+        <Button
+            android:id="@+id/btnSubmitRekapPesanan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_putih"
+            android:text="OK"
+            android:textColor="@color/colorPrimary" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnKeluar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_weight="1"
+        android:background="@drawable/button_merah"
+        android:text="KELUAR"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <android.inputmethodservice.KeyboardView
+        android:id="@+id/keyboard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/keyboardBackground"
+        android:keyBackground="@drawable/key_background"
+        android:keyTextColor="@color/keyboardKey"
+        android:shadowRadius="0.0" />
+
+</LinearLayout>

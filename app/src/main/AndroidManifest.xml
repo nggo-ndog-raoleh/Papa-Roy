@@ -2,27 +2,28 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="arkavidia.ljkeyboard">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+
     <application
-        android:name=".AppController"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_logo"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-
-        <!-- Tambah class AppController di atas, supaya class tersebut dieksekusi saat app dijalankan -->
-        <activity android:name=".SplashScreen">
+        android:theme="@style/NoAppBar">
+        <activity android:name=".Activity.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!-- SERVICE di bawah ini adalah supaya OS Android tahu ada keyboard di sistem -->
-        <!-- SERVICE ini untuk menambahkan IME (Input Method Editor), yaitu adalah keyboard -->
+        <!-- SERVICE di bawah ini adalah supaya OS Android tahu keyboard di sistem -->
+        <!-- SERVICE ini untuk menambahkan IME (Input Method Editor), yaitu keyboard -->
         <service
-            android:name=".LJKeyboard2"
+            android:name=".LJKeyboard"
             android:label="@string/app_name"
             android:permission="android.permission.BIND_INPUT_METHOD">
             <meta-data
@@ -34,9 +35,29 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".MainActivity" />
-        <activity android:name=".HomeScreen" />
-        <activity android:name=".AddTemplate"></activity>
+        <activity android:name=".Activity.LoginActivity" />
+        <activity android:name=".Activity.HomeScreen" />
+        <activity
+            android:name=".Activity.TemplateChat.MenuUtamaTemplateChatActivity"
+            android:parentActivityName=".Activity.HomeScreen" />
+        <activity
+            android:name=".Activity.TemplateChat.EditTemplateChatActivity"
+            android:parentActivityName=".Activity.TemplateChat.MenuUtamaTemplateChatActivity" />
+        <activity
+            android:name=".Activity.InformasiToko.InformasiTokoActivity"
+            android:parentActivityName=".Activity.HomeScreen" />
+        <activity
+            android:name=".Activity.InformasiToko.AkunBankActivity"
+            android:parentActivityName=".Activity.InformasiToko.InformasiTokoActivity" />
+        <activity
+            android:name=".Activity.InformasiToko.ListProdukActivity"
+            android:parentActivityName=".Activity.InformasiToko.InformasiTokoActivity" />
+        <activity
+            android:name=".Activity.RekapPesananActivity"
+            android:parentActivityName=".Activity.HomeScreen" />
+        <activity
+            android:name=".Activity.RegisterTokoBaruActivity"
+            android:parentActivityName=".Activity.LoginActivity"></activity>
     </application>
 
 </manifest>

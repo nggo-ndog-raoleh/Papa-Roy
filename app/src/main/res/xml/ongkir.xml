@@ -1,4 +1,4 @@
-<!--Ini adalah keyboard yang muncul-->
+<!--Ini adakeyboard_utamaoard yang muncul-->
 <!--KeyLabel adalah yang terlihat oleh pengguna-->
 <!--codes adalah code yang bersesuaian dengan karakternya (Nilai unicode dari karakternya)-->
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android"

@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">LJ Keyboard</string>
     <string name="subtype_en_US">English (US)</string>
+    <string name="lj_keyboard">LJ KEYBOARD</string>
 
     <string name="title_activity_splash_screen">SplashScreen</string>
     <string name="dummy_button">Dummy Button</string>
