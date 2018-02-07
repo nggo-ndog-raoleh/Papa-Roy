@@ -56,6 +56,7 @@ import java.util.List;
 import arkavidia.ljkeyboard.Database.SqliteDbHelper;
 import arkavidia.ljkeyboard.Model.Firebase.Spreadsheet;
 import arkavidia.ljkeyboard.Model.Sqlite.RekapPesanan;
+import arkavidia.ljkeyboard.Model.TextViewProperties;
 import arkavidia.ljkeyboard.R;
 import arkavidia.ljkeyboard.TaskCompleted;
 import pub.devrel.easypermissions.AfterPermissionGranted;
@@ -73,6 +74,8 @@ public class RekapPesananActivity extends AppCompatActivity implements EasyPermi
     private Toolbar toolbar;
     private TableLayout tableLayout;
     private TableRow tableRowHeader;
+    private TextView namaCustHeader, noTelpHeader, produkYangDibeliHeader, quantityHeader,
+            totalHargaHeader, bankTujuanHeader, logistikHeader, ongkirHeader;
     private Button btnUploadRekapPesananKeFirebase;
 
     private Dialog dialogYesNo;
@@ -80,6 +83,8 @@ public class RekapPesananActivity extends AppCompatActivity implements EasyPermi
     private Button btnYesDialogYesNo, btnNoDialogYesNo;
 
     private SqliteDbHelper sqliteDbHelper;
+
+    private TextViewProperties generalTextViewProperties;
 
     GoogleAccountCredential mCredential;
     static final int REQUEST_ACCOUNT_PICKER = 1000;
@@ -181,6 +186,14 @@ public class RekapPesananActivity extends AppCompatActivity implements EasyPermi
     }
 
     private void initiateTableRowHeader(){
+        generalTextViewProperties = TextViewProperties.builder()
+                .color(getResources().getColor(R.color.black))
+                .left(10)
+                .top(5)
+                .right(10)
+                .bottom(5)
+                .build();
+
         TextView namaCustHeader = new TextView(RekapPesananActivity.this);
         namaCustHeader.setBackgroundResource(R.drawable.table_rekap_pesanan_cell);
         namaCustHeader.setTextColor(getResources().getColor(R.color.black));
@@ -310,6 +323,17 @@ public class RekapPesananActivity extends AppCompatActivity implements EasyPermi
             tableRowContent.addView(ongkir);
 
             tableLayout.addView(tableRowContent);
+        }
+    }
+
+    private void setTextProperties(TextView textView, TextViewProperties textViewProperties){
+        textView.setTextColor(textViewProperties.getColor());
+        textView.setPadding(textViewProperties.getLeft(),
+                textViewProperties.getTop(),
+                textViewProperties.getRight(),
+                textViewProperties.getBottom());
+        if(textViewProperties.getText() != null) {
+            textView.setText(textViewProperties.getText());
         }
     }
 

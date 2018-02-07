@@ -59,6 +59,107 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
+                        <!--<TableRow-->
+                            <!--android:id="@+id/tableRowHeader"-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="match_parent">-->
+
+                            <!--<TextView-->
+                                <!--android:id="@+id/namaCustHeader"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:paddingBottom="5dp"-->
+                                <!--android:paddingLeft="10dp"-->
+                                <!--android:paddingRight="10dp"-->
+                                <!--android:paddingTop="5dp"-->
+                                <!--android:text="Nama Customer"-->
+                                <!--android:textColor="@android:color/black"-->
+                                <!--android:textStyle="bold" />-->
+
+                            <!--<TextView-->
+                                <!--android:id="@+id/noTelpHeader"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:paddingBottom="5dp"-->
+                                <!--android:paddingLeft="10dp"-->
+                                <!--android:paddingRight="10dp"-->
+                                <!--android:paddingTop="5dp"-->
+                                <!--android:text="No Telp"-->
+                                <!--android:textColor="@android:color/black"-->
+                                <!--android:textStyle="bold" />-->
+
+                            <!--<TextView-->
+                                <!--android:id="@+id/produkYangDibeliHeader"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:paddingBottom="5dp"-->
+                                <!--android:paddingLeft="10dp"-->
+                                <!--android:paddingRight="10dp"-->
+                                <!--android:paddingTop="5dp"-->
+                                <!--android:text="Produk"-->
+                                <!--android:textColor="@android:color/black"-->
+                                <!--android:textStyle="bold" />-->
+
+                            <!--<TextView-->
+                                <!--android:id="@+id/quantityHeader"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:paddingBottom="5dp"-->
+                                <!--android:paddingLeft="10dp"-->
+                                <!--android:paddingRight="10dp"-->
+                                <!--android:paddingTop="5dp"-->
+                                <!--android:text="Quantity"-->
+                                <!--android:textColor="@android:color/black"-->
+                                <!--android:textStyle="bold" />-->
+
+                            <!--<TextView-->
+                                <!--android:id="@+id/totalHargaHeader"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:paddingBottom="5dp"-->
+                                <!--android:paddingLeft="10dp"-->
+                                <!--android:paddingRight="10dp"-->
+                                <!--android:paddingTop="5dp"-->
+                                <!--android:text="Total Harga"-->
+                                <!--android:textColor="@android:color/black"-->
+                                <!--android:textStyle="bold" />-->
+
+                            <!--<TextView-->
+                                <!--android:id="@+id/bankTujuanHeader"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:paddingBottom="5dp"-->
+                                <!--android:paddingLeft="10dp"-->
+                                <!--android:paddingRight="10dp"-->
+                                <!--android:paddingTop="5dp"-->
+                                <!--android:text="Bank Tujuan"-->
+                                <!--android:textColor="@android:color/black"-->
+                                <!--android:textStyle="bold" />-->
+
+                            <!--<TextView-->
+                                <!--android:id="@+id/logistikHeader"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:paddingBottom="5dp"-->
+                                <!--android:paddingLeft="10dp"-->
+                                <!--android:paddingRight="10dp"-->
+                                <!--android:paddingTop="5dp"-->
+                                <!--android:text="Logistik"-->
+                                <!--android:textColor="@android:color/black"-->
+                                <!--android:textStyle="bold" />-->
+
+                            <!--<TextView-->
+                                <!--android:id="@+id/ongkirHeader"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:paddingBottom="5dp"-->
+                                <!--android:paddingLeft="10dp"-->
+                                <!--android:paddingRight="10dp"-->
+                                <!--android:paddingTop="5dp"-->
+                                <!--android:text="Ongkir"-->
+                                <!--android:textColor="@android:color/black"-->
+                                <!--android:textStyle="bold" />-->
+                        <!--</TableRow>-->
                     </TableLayout>
                 </LinearLayout>
             </ScrollView>
