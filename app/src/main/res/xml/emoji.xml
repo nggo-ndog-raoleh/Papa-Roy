@@ -51,11 +51,9 @@
         <Key android:codes="-5" android:keyIcon="@drawable/icon_backspace" android:keyWidth="15%p" android:isRepeatable="true" android:keyEdgeFlags="right"/>
     </Row>
     <Row android:rowEdgeFlags="bottom">
-        <Key android:codes="-6" android:keyLabel="\?123" android:keyWidth="15%p" android:keyEdgeFlags="left"/>
-        <Key android:codes="3" android:keyIcon="@drawable/icon_keyboard" android:keyWidth="15%p"/>
-        <Key android:codes="44" android:keyLabel="," android:keyWidth="10%p"/>
-        <Key android:codes="32" android:keyLabel="SPACE" android:keyWidth="35%p" android:isRepeatable="true"/>
-        <Key android:codes="46" android:keyLabel="." android:keyWidth="10%p"/>
-        <Key android:codes="-4" android:keyIcon="@drawable/icon_arrow_enter" android:keyWidth="15%p" android:keyEdgeFlags="right"/>
+        <Key android:codes="7" android:keyLabel=":)" android:keyWidth="20%p" android:keyEdgeFlags="left"/>
+        <Key android:codes="3" android:keyIcon="@drawable/icon_keyboard" android:keyWidth="10%p"/>
+        <Key android:codes="32" android:keyLabel="SPACE" android:keyWidth="50%p" android:isRepeatable="true"/>
+        <Key android:codes="-4" android:keyIcon="@drawable/icon_arrow_enter" android:keyWidth="20%p" android:keyEdgeFlags="right"/>
     </Row>
 </Keyboard>

@@ -11,6 +11,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import arkavidia.ljkeyboard.Model.Firebase.InformasiToko;
 import arkavidia.ljkeyboard.Model.Firebase.TemplateChat;
 
 /**
@@ -20,12 +21,24 @@ import arkavidia.ljkeyboard.Model.Firebase.TemplateChat;
 public class PesananBaru {
 
     private static final String TAG = "PesananBaru.class";
+    private static final String INFORMASI_TOKO = "informasi-toko";
+    private static final String ID = "id";
+    private static final String NAMA_TOKO = "namaToko";
+    private static final String AKUN_BANK = "akunBank";
+    private static final String NAMA_BANK = "namaBank";
+    private static final String NAMA_PEMILIK_REKENING = "namaPemilikRekening";
+    private static final String NOMOR_REKENING = "nomorRekening";
+    private static final String PRODUK = "produk";
+    private static final String HARGA_PRODUK = "hargaProduk";
+    private static final String NAMA_PRODUK = "namaProduk";
+    private static final String STOCK_PRODUK = "stockProduk";
     private static final String TEMPLATE_CHAT = "template-chat";
     private static final String PESANAN_BARU = "pesanan-baru";
 
     DatabaseReference databaseReference;
     FirebaseAuth firebaseAuth;
     FirebaseUser user;
+    private String namaToko;
 
     public PesananBaru() {
         databaseReference = FirebaseDatabase.getInstance().getReference();
@@ -34,12 +47,25 @@ public class PesananBaru {
     }
 
     public void kirimPesananBaruMessage(final InputConnection inputConnection){
-        databaseReference.child(TEMPLATE_CHAT).child(user.getUid()).child(PESANAN_BARU).addValueEventListener(new ValueEventListener() {
+        databaseReference.child(INFORMASI_TOKO).child(user.getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                TemplateChat templateChat = dataSnapshot.getValue(TemplateChat.class);
-                String pesananBaruMessage = templateChat.getTemplateContent();
-                inputConnection.commitText(pesananBaruMessage, 1);
+                InformasiToko informasiToko = dataSnapshot.getValue(InformasiToko.class);
+                namaToko = informasiToko.getNamaToko();
+                databaseReference.child(TEMPLATE_CHAT).child(user.getUid()).child(PESANAN_BARU).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        TemplateChat templateChat = dataSnapshot.getValue(TemplateChat.class);
+                        String pesananBaruMessage = templateChat.getTemplateContent();
+                        pesananBaruMessage = pesananBaruMessage.replaceAll("/nama-toko/", namaToko);
+                        inputConnection.commitText(pesananBaruMessage, 1);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
             }
 
             @Override

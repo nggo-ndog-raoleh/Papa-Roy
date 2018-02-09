@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -41,16 +40,10 @@ import arkavidia.ljkeyboard.Features.TemplateChat.TerimaKasih;
 import arkavidia.ljkeyboard.Model.Firebase.AkunBank;
 import arkavidia.ljkeyboard.Model.Firebase.Produk;
 import arkavidia.ljkeyboard.Model.ProdukYangDibeli;
-import arkavidia.ljkeyboard.Model.Retrofit.City.RajaOngkirResponse;
-import arkavidia.ljkeyboard.Model.Retrofit.City.Result;
-import arkavidia.ljkeyboard.Model.Sqlite.City;
 import arkavidia.ljkeyboard.Model.Sqlite.Customer;
 import arkavidia.ljkeyboard.Model.Sqlite.RekapPesanan;
 import arkavidia.ljkeyboard.RecyclerViewAdapter.RecyclerViewPilihProdukAdapter;
 import arkavidia.ljkeyboard.SpinnerAdapter.SpinnerCourierAdapter;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * Created by axellageraldinc on 06/12/17.
@@ -68,6 +61,7 @@ public class LJKeyboard extends InputMethodService implements KeyboardView.OnKey
     StringBuilder typedCharacters = new StringBuilder();
     String focusedEditText="";
     private boolean capslock=false;
+    private boolean punctuation=false;
 
     private RajaOngkirService rajaOngkirService;
     private SqliteDbHelper sqliteDbHelper;
@@ -148,7 +142,7 @@ public class LJKeyboard extends InputMethodService implements KeyboardView.OnKey
      **/
     private KeyboardView kv;
     private View root;
-    private Keyboard keyboardQwerty;
+    private Keyboard keyboardQwerty, keyboardPunctuation;
 
     /**
      * FIREBASE
@@ -194,6 +188,7 @@ public class LJKeyboard extends InputMethodService implements KeyboardView.OnKey
     **/
     private void initiateKeyboardView(){
         keyboardQwerty = new Keyboard(this, R.xml.qwerty);
+        keyboardPunctuation = new Keyboard(this, R.xml.punctuation);
         kv = (KeyboardView) root.findViewById(R.id.keyboard);
         kv.setKeyboard(keyboardQwerty);
         kv.setOnKeyboardActionListener(this);
@@ -380,6 +375,15 @@ public class LJKeyboard extends InputMethodService implements KeyboardView.OnKey
     private void setCapslock(boolean isCapslock){
         kv.setShifted(isCapslock);
         kv.invalidateAllKeys();
+    }
+    private void changeToPunctuationKeyboardLayout(boolean isPunctuation){
+        if(!isPunctuation) {
+            kv.setKeyboard(keyboardPunctuation);
+            kv.invalidateAllKeys();
+        } else {
+            kv.setKeyboard(keyboardQwerty);
+            kv.invalidateAllKeys();
+        }
     }
 
     /**
@@ -957,6 +961,10 @@ public class LJKeyboard extends InputMethodService implements KeyboardView.OnKey
                 break;
             case KeyboardKey.CHANGE_KEYBOARD:
                 changeKeyboardLayout();
+                break;
+            case KeyboardKey.PUNCTUATION:
+                punctuation = !punctuation;
+                changeToPunctuationKeyboardLayout(punctuation);
                 break;
             default:
                 char code = (char)i;
