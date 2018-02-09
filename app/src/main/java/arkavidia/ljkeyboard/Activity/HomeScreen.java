@@ -2,9 +2,11 @@ package arkavidia.ljkeyboard.Activity;
 
 import android.Manifest;
 import android.accounts.AccountManager;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
@@ -14,8 +16,11 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -77,6 +82,9 @@ public class HomeScreen extends AppCompatActivity implements EasyPermissions.Per
     private static final String SPREADSHEET_ID = "spreadsheetId";
     private static final String SPREADSHEET_URL = "spreadsheetUrl";
 
+    Toolbar toolbar;
+    AlertDialog.Builder alertDialog;
+
     DatabaseReference databaseReference;
     FirebaseAuth firebaseAuth;
     FirebaseUser user;
@@ -107,11 +115,12 @@ public class HomeScreen extends AppCompatActivity implements EasyPermissions.Per
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
 
-        initiate();
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-    }
+        alertDialog = new AlertDialog.Builder(HomeScreen.this);
 
-    private void initiate(){
         databaseReference = FirebaseDatabase.getInstance().getReference();
         firebaseAuth = FirebaseAuth.getInstance();
         user = getCurrentLoggedInUser();
@@ -134,25 +143,29 @@ public class HomeScreen extends AppCompatActivity implements EasyPermissions.Per
         });
 
         if(isDeviceOnline()) {
-            progressDialog.setMessage("Checking spreadsheets...");
-            progressDialog.show();
-            databaseReference.child(INFORMASI_TOKO).child(user.getUid()).child(SPREADSHEET).child(SPREADSHEET_ID).addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    String spreadsheetId = dataSnapshot.getValue(String.class);
-                    if (spreadsheetId.equals("belum ada")) {
-                        progressDialog.dismiss();
-                        dialog.show();
-                    } else {
-                        progressDialog.dismiss();
+            try {
+                progressDialog.setMessage("Checking spreadsheets...");
+                progressDialog.show();
+                databaseReference.child(INFORMASI_TOKO).child(user.getUid()).child(SPREADSHEET).child(SPREADSHEET_ID).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        String spreadsheetId = dataSnapshot.getValue(String.class);
+                        if (spreadsheetId.equals("belum ada")) {
+                            progressDialog.dismiss();
+                            dialog.show();
+                        } else {
+                            progressDialog.dismiss();
+                        }
                     }
-                }
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
 
-                }
-            });
+                    }
+                });
+            } catch (Exception ex){
+                Log.i(TAG, ex.toString());
+            }
         } else {
             Toast.makeText(this, "Please connect to internet!", Toast.LENGTH_SHORT).show();
         }
@@ -188,6 +201,43 @@ public class HomeScreen extends AppCompatActivity implements EasyPermissions.Per
         mCredential = GoogleAccountCredential.usingOAuth2(
                 getApplicationContext(), Arrays.asList(SCOPES))
                 .setBackOff(new ExponentialBackOff());
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.logout_menu:
+                alertDialog.setMessage("Are you sure to logout?");
+                alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        firebaseAuth.signOut();
+                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+                alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                });
+                alertDialog.create();
+                alertDialog.show();
+                break;
+            default:
+                break;
+        }
+        return true;
     }
 
     /**

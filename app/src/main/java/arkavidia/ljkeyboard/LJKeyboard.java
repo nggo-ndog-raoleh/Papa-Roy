@@ -167,15 +167,19 @@ public class LJKeyboard extends InputMethodService implements KeyboardView.OnKey
         sqliteDbHelper = new SqliteDbHelper(getApplicationContext());
         isInputConnectionExternalLJKeyboard = true;
         root = getLayoutInflater().inflate(R.layout.keyboard_utama, null);
-        initiateMenu();
-        initiateCekOngkirElements();
-        initiateMenuTemplateChat();
-        initiatePesananBaruTemplateChat();
-        initiateTemplatePembayaranElements();
-        initiateTerimaKasih();
-        initiateKirimNoResi();
-        initiateRekapPesanan();
         initiateKeyboardView();
+        try{
+            initiateMenu();
+            initiateCekOngkirElements();
+            initiateMenuTemplateChat();
+            initiatePesananBaruTemplateChat();
+            initiateTemplatePembayaranElements();
+            initiateTerimaKasih();
+            initiateKirimNoResi();
+            initiateRekapPesanan();
+        } catch (Exception ex){
+            Log.i(TAG, ex.toString());
+        }
         return root;
     }
 

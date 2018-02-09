@@ -591,21 +591,30 @@ public class RekapPesananActivity extends AppCompatActivity implements EasyPermi
                 range = "A" + String.valueOf(numRows+1) + ":" + "H" + String.valueOf(numRows+1);
                 Log.i(TAG, "Range : " + range);
                 List<Object> objects = new ArrayList<>();
-                for (RekapPesanan item:rekapPesananList
-                     ) {
-                    objects.add(item.getCustomer().getNama());
-                    objects.add(item.getCustomer().getNomorTelepon());
-                    objects.add(item.getProduk());
-                    objects.add(item.getQuantity());
-                    objects.add(item.getTotalHargaProduk());
-                    objects.add(item.getBank());
-                    objects.add(item.getKurirLogistik());
-                    objects.add(item.getOngkir());
-                }
+                objects.add(rekapPesananList.get(i).getCustomer().getNama());
+                objects.add(rekapPesananList.get(i).getCustomer().getNomorTelepon());
+                objects.add(rekapPesananList.get(i).getProduk());
+                objects.add(rekapPesananList.get(i).getQuantity());
+                objects.add(rekapPesananList.get(i).getTotalHargaProduk());
+                objects.add(rekapPesananList.get(i).getBank());
+                objects.add(rekapPesananList.get(i).getKurirLogistik());
+                objects.add(rekapPesananList.get(i).getOngkir());
+//                for (RekapPesanan item:rekapPesananList
+//                     ) {
+//                    objects.add(item.getCustomer().getNama());
+//                    objects.add(item.getCustomer().getNomorTelepon());
+//                    objects.add(item.getProduk());
+//                    objects.add(item.getQuantity());
+//                    objects.add(item.getTotalHargaProduk());
+//                    objects.add(item.getBank());
+//                    objects.add(item.getKurirLogistik());
+//                    objects.add(item.getOngkir());
+//                }
                 List<List<Object>> values = new ArrayList<>();
                 values.add(objects);
                 ValueRange valueRange = new ValueRange();
                 valueRange.setValues(values);
+                Log.i(TAG, "values(0) from value range : " + valueRange.getValues().get(0));
                 Sheets.Spreadsheets.Values.Update request =
                         this.mService
                                 .spreadsheets()
