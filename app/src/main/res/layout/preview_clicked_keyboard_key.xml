@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--Preview setiap tombol ditekan adalah dalam bentuk popup textview-->
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white_dark"
     android:gravity="center"
-    android:background="#ffff00"
-    android:textStyle="bold"
+    android:text="preview"
     android:textSize="30sp"
-    >
-</TextView>
+    android:textStyle="bold"></TextView>

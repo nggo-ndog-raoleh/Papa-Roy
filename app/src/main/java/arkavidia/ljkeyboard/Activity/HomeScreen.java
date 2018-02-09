@@ -133,26 +133,29 @@ public class HomeScreen extends AppCompatActivity implements EasyPermissions.Per
             }
         });
 
-        progressDialog.setMessage("Checking spreadsheets...");
-        progressDialog.show();
-        databaseReference.child(INFORMASI_TOKO).child(user.getUid()).child(SPREADSHEET).child(SPREADSHEET_ID).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String spreadsheetId = dataSnapshot.getValue(String.class);
-                if(spreadsheetId.equals("belum ada")){
-                    progressDialog.dismiss();
-                    dialog.show();
-                } else {
-                    progressDialog.dismiss();
+        if(isDeviceOnline()) {
+            progressDialog.setMessage("Checking spreadsheets...");
+            progressDialog.show();
+            databaseReference.child(INFORMASI_TOKO).child(user.getUid()).child(SPREADSHEET).child(SPREADSHEET_ID).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    String spreadsheetId = dataSnapshot.getValue(String.class);
+                    if (spreadsheetId.equals("belum ada")) {
+                        progressDialog.dismiss();
+                        dialog.show();
+                    } else {
+                        progressDialog.dismiss();
+                    }
                 }
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-            }
-        });
-
+                }
+            });
+        } else {
+            Toast.makeText(this, "Please connect to internet!", Toast.LENGTH_SHORT).show();
+        }
         rajaOngkirService = RajaOngkirApiUtil.getRajaOngkirService();
 
         cardViewTemplateChat = findViewById(R.id.cardViewTemplateChat);

@@ -460,6 +460,6 @@
         android:background="@color/keyboardBackground"
         android:keyBackground="@drawable/key_background"
         android:keyTextColor="@color/keyboardKey"
-        android:shadowRadius="0.0" />
+        android:shadowRadius="0.0"/>
 
 </LinearLayout>

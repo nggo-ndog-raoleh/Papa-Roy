@@ -5,6 +5,7 @@ import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -66,6 +67,7 @@ public class LJKeyboard extends InputMethodService implements KeyboardView.OnKey
     private boolean isInputConnectionExternalLJKeyboard;
     StringBuilder typedCharacters = new StringBuilder();
     String focusedEditText="";
+    private boolean capslock=false;
 
     private RajaOngkirService rajaOngkirService;
     private SqliteDbHelper sqliteDbHelper;
@@ -194,9 +196,13 @@ public class LJKeyboard extends InputMethodService implements KeyboardView.OnKey
         kv.setPreviewEnabled(false);
     }
     // TODO : Ini kayaknya bisa dibuat ke class sendiri
-    private void deleteKeyPressed(InputConnection ic){
+    private void deleteKeyPressed(InputConnection ic, CharSequence selectedText){
         if(isInputConnectionExternalLJKeyboard){
-            ic.deleteSurroundingText(1, 0);
+            if(TextUtils.isEmpty(selectedText)) {
+                ic.deleteSurroundingText(1, 0);
+            } else {
+                ic.commitText("", 1);
+            }
         } else if(!isInputConnectionExternalLJKeyboard){
             switch (focusedEditText) {
                 case "txtOrigin":
@@ -253,6 +259,24 @@ public class LJKeyboard extends InputMethodService implements KeyboardView.OnKey
                         txtNamaCustomerTerimakasih.getText().delete(txtNamaCustomerTerimakasihLength - 1, txtNamaCustomerTerimakasihLength);
                         if(typedCharacters.length()>0){
                             typedCharacters.deleteCharAt(txtNamaCustomerTerimakasihLength - 1);
+                        }
+                    }
+                    break;
+                case "txtNamaCustNoResi":
+                    int txtNamaCustNoResiLength = txtNamaCustNoResi.getText().length();
+                    if (txtNamaCustNoResiLength > 0) {
+                        txtNamaCustNoResi.getText().delete(txtNamaCustNoResiLength - 1, txtNamaCustNoResiLength);
+                        if(typedCharacters.length()>0){
+                            typedCharacters.deleteCharAt(txtNamaCustNoResiLength - 1);
+                        }
+                    }
+                    break;
+                case "txtNoResi":
+                    int txtNoResiLength = txtNoResi.getText().length();
+                    if (txtNoResiLength > 0) {
+                        txtNoResi.getText().delete(txtNoResiLength - 1, txtNoResiLength);
+                        if(typedCharacters.length()>0){
+                            typedCharacters.deleteCharAt(txtNoResiLength - 1);
                         }
                     }
                     break;
@@ -349,6 +373,10 @@ public class LJKeyboard extends InputMethodService implements KeyboardView.OnKey
     private void changeLayoutStatus(Boolean menuUtamaStatus){
         this.isInputConnectionExternalLJKeyboard = menuUtamaStatus;
     }
+    private void setCapslock(boolean isCapslock){
+        kv.setShifted(isCapslock);
+        kv.invalidateAllKeys();
+    }
 
     /**
     * MENU UTAMA
@@ -410,6 +438,7 @@ public class LJKeyboard extends InputMethodService implements KeyboardView.OnKey
         clearAllFields(linearLayoutKirimNoResi);
         clearAllFields(linearLayoutHorizontalKirimNomorResi);
         clearAllFields(linearLayoutHorizontalRekapPesanan);
+        focusedEditText="none";
     }
     private void clearAllFields(ViewGroup group){
         for (int i = 0, count = group.getChildCount(); i < count; ++i) {
@@ -895,6 +924,7 @@ public class LJKeyboard extends InputMethodService implements KeyboardView.OnKey
              ) {
             Log.i(TAG, item.getCustomer().getNama() + "\n" + item.getProduk() + " " + item.getQuantity() + " " + item.getTotalHargaProduk());
         }
+        clearAllFields(linearLayoutHorizontalRekapPesanan);
     }
 
     @Override
@@ -909,9 +939,14 @@ public class LJKeyboard extends InputMethodService implements KeyboardView.OnKey
     @Override
     public void onKey(int i, int[] ints) {
         final InputConnection ic = getCurrentInputConnection(); //getCurrentInputConnection digunakan untuk mendapatkan koneksi ke bidang input aplikasi lain.
+        CharSequence selectedText = ic.getSelectedText(0);
         switch(i){
+            case KeyboardKey.CAPSLOCK:
+                capslock = !capslock;
+                setCapslock(capslock);
+                break;
             case KeyboardKey.KEYCODE_DELETE :
-                deleteKeyPressed(ic);
+                deleteKeyPressed(ic, selectedText);
                 break;
             case KeyboardKey.KEYCODE_DONE:
                 ic.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER));
@@ -921,6 +956,9 @@ public class LJKeyboard extends InputMethodService implements KeyboardView.OnKey
                 break;
             default:
                 char code = (char)i;
+                if(Character.isLetter(code) && capslock){
+                    code = Character.toUpperCase(code);
+                }
                 commitTextToLjKeyboardEditText(String.valueOf(code));
         }
     }
